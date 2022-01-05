@@ -1,3 +1,4 @@
+import random
 goal = [
     0b111000000, 0b000111000, 0b000000111, 0b100100100,
     0b010010010, 0b001001001, 0b100010001, 0b001010100
@@ -45,7 +46,9 @@ def play(p1, p2, turn):
     # 各場所に置いたときの評価値を調べる
     r = [minmax(p2, p1 | (1 << i), True) for i in w]
     # 評価値が一番高い場所を取得する
-    j = w[r.index(max(r))]
+    j = [i for i, x in enumerate(r) if x == max(r)]
+    # ランダムに１つ選ぶ
+    j = w[random.choice(r)]
     play(p2, p1 | (1 << j), not turn)
 
 play(0, 0, True)
